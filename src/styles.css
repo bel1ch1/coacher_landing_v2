@@ -8,11 +8,16 @@
   text-rendering: optimizeLegibility;
   --deep-black: #050608;
   --ice-white: #f4f8ff;
-  --steel-blue: #70a7c7;
-  --electric-cyan: #20d7ff;
-  --warning-red: #e3222b;
+  --steel-blue: #9aa0a8;
+  --electric-cyan: #c7ccd3;
+  --warning-red: #6f737a;
   --graphite: #171a20;
   --silver: #aab3c2;
+  --carbon: #0a0b0d;
+  --carbon-light: #24272c;
+  --gunmetal: #3a3e45;
+  --brushed-metal: #d8dbe0;
+  --smoked-chrome: #8f969f;
 }
 
 * {
@@ -2061,4 +2066,194 @@ h1 {
   .reveal-blur.reveal-reverse.is-visible .section-heading {
     transition-delay: 310ms;
   }
+}
+
+/* Sport-car palette pass: carbon fiber, gunmetal and brushed chrome instead of blue/red accents. */
+body {
+  background:
+    radial-gradient(circle at 14% 18%, rgba(216, 219, 224, 0.09), transparent 25rem),
+    radial-gradient(circle at 88% 12%, rgba(95, 101, 110, 0.12), transparent 24rem),
+    linear-gradient(135deg, #050608 0%, #0b0c0f 46%, #040405 100%);
+}
+
+.landing {
+  background:
+    linear-gradient(180deg, rgba(5, 6, 8, 0.08), #050608 920px),
+    repeating-linear-gradient(135deg, rgba(216, 219, 224, 0.035) 0 1px, transparent 1px 12px),
+    repeating-linear-gradient(45deg, rgba(143, 150, 159, 0.025) 0 1px, transparent 1px 18px),
+    var(--deep-black);
+}
+
+.hero::after {
+  background-image:
+    linear-gradient(rgba(216, 219, 224, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(216, 219, 224, 0.035) 1px, transparent 1px),
+    linear-gradient(118deg, transparent 0 45%, rgba(216, 219, 224, 0.13) 45% 45.35%, transparent 45.35% 100%);
+}
+
+.brand-mark,
+.profile-chip,
+.card-topline span {
+  border-color: rgba(216, 219, 224, 0.58);
+  background:
+    linear-gradient(135deg, rgba(216, 219, 224, 0.18), rgba(68, 73, 82, 0.16)),
+    linear-gradient(45deg, rgba(255, 255, 255, 0.08), transparent 34%),
+    #0b0d10;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), inset 0 -12px 18px rgba(0, 0, 0, 0.48);
+}
+
+.eyebrow,
+.section-kicker,
+.final-cta p,
+.hero-dashboard span,
+.card-topline span,
+.card-topline i,
+.demo-specs span,
+.plan-topline span,
+.app-header span,
+.next-session span,
+.coach-panel span,
+.app-footer span,
+.focus-card-head span,
+.focus-card-head em,
+.stats-panel dt {
+  color: var(--smoked-chrome);
+  text-shadow: 0 0 14px rgba(216, 219, 224, 0.16);
+}
+
+h1 {
+  text-shadow:
+    0 2px 0 rgba(216, 219, 224, 0.25),
+    0 24px 70px rgba(0, 0, 0, 0.9);
+}
+
+.hero-actions a,
+.final-cta a,
+.next-session button,
+.coach-panel button,
+.phone-tabs button.active {
+  border-color: rgba(216, 219, 224, 0.8);
+  color: #07080a;
+  background:
+    linear-gradient(180deg, #f2f3f5 0%, #b8bec6 46%, #757b84 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82), inset 0 -9px 0 rgba(0, 0, 0, 0.18), 0 0 26px rgba(216, 219, 224, 0.14);
+}
+
+.hero-actions .ghost-link {
+  color: var(--ice-white);
+  border-color: rgba(143, 150, 159, 0.46);
+  background:
+    linear-gradient(135deg, rgba(36, 39, 44, 0.92), rgba(7, 8, 10, 0.78)),
+    repeating-linear-gradient(135deg, rgba(216, 219, 224, 0.05) 0 1px, transparent 1px 9px);
+}
+
+.hero-lead,
+.hero-stats div,
+.hero-dashboard article,
+.demo-specs article,
+.feature-card,
+.audience-card,
+.plan-card,
+.app-header,
+.next-session,
+.phone-tabs,
+.coach-panel,
+.stats-panel,
+.app-footer,
+.focus-card {
+  border-color: rgba(143, 150, 159, 0.34);
+  background:
+    linear-gradient(135deg, rgba(216, 219, 224, 0.045), transparent 32%),
+    repeating-linear-gradient(135deg, rgba(216, 219, 224, 0.035) 0 1px, transparent 1px 10px),
+    linear-gradient(140deg, rgba(25, 27, 31, 0.96), rgba(5, 6, 8, 0.9));
+}
+
+.hero-stats div,
+.next-session,
+.audience-card,
+.focus-card.selected,
+.focus-card:hover {
+  border-left-color: var(--brushed-metal);
+}
+
+.hero-dashboard article::before,
+.feature-card::before,
+.audience-card::before,
+.plan-card::before,
+.demo-specs article::before {
+  border-top-color: var(--brushed-metal);
+  border-right-color: var(--brushed-metal);
+}
+
+.hero-dashboard article:nth-child(2)::before,
+.audience-card:nth-child(even),
+.hero-content::before {
+  border-color: var(--gunmetal);
+}
+
+.hero-content::before {
+  background: linear-gradient(180deg, transparent, rgba(216, 219, 224, 0.52), rgba(96, 101, 110, 0.34), transparent);
+  box-shadow: 0 0 18px rgba(216, 219, 224, 0.12);
+}
+
+.demo-copy::after,
+.feature-card::after,
+.plan-card::after,
+.focus-card i {
+  background: linear-gradient(90deg, transparent, var(--brushed-metal), rgba(86, 91, 100, 0.3));
+}
+
+.feature-card::after,
+.plan-card::after {
+  background: linear-gradient(90deg, transparent, var(--brushed-metal));
+}
+
+.phone-glow {
+  background:
+    linear-gradient(135deg, rgba(216, 219, 224, 0.16), rgba(84, 89, 98, 0.16)),
+    rgba(143, 150, 159, 0.08);
+  filter: blur(60px);
+}
+
+.phone-frame {
+  border-color: rgba(216, 219, 224, 0.32);
+  background:
+    linear-gradient(145deg, rgba(216, 219, 224, 0.3), rgba(5, 6, 8, 0.44) 28%, rgba(95, 101, 110, 0.2)),
+    #050608;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.05),
+    0 36px 90px rgba(0, 0, 0, 0.76),
+    0 0 46px rgba(216, 219, 224, 0.12);
+}
+
+.phone-screen {
+  border-color: rgba(143, 150, 159, 0.32);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(216, 219, 224, 0.13), transparent 14rem),
+    repeating-linear-gradient(90deg, rgba(244, 248, 255, 0.025) 0 1px, transparent 1px 18px),
+    linear-gradient(180deg, #090b10 0%, #050608 100%);
+}
+
+.score-ring {
+  background:
+    radial-gradient(circle, #080a10 55%, transparent 57%),
+    conic-gradient(var(--brushed-metal) 0 78%, rgba(80, 84, 92, 0.34) 78% 100%);
+}
+
+.stats-panel strong,
+.plan-topline span,
+.plan-card li::before,
+.feature-card h3,
+.card-topline span,
+.profile-chip {
+  color: var(--brushed-metal);
+}
+
+.plan-card-active {
+  border-color: rgba(216, 219, 224, 0.6);
+  box-shadow: 0 0 46px rgba(216, 219, 224, 0.12);
+}
+
+.plan-topline span {
+  border-color: rgba(143, 150, 159, 0.5);
 }
