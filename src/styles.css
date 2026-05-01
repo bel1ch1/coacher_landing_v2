@@ -18,6 +18,9 @@
   --gunmetal: #3a3e45;
   --brushed-metal: #d8dbe0;
   --smoked-chrome: #8f969f;
+  --cold-blue: #70a7c7;
+  --cold-blue-soft: rgba(112, 167, 199, 0.18);
+  --cold-blue-line: rgba(112, 167, 199, 0.52);
 }
 
 * {
@@ -2256,4 +2259,85 @@ h1 {
 
 .plan-topline span {
   border-color: rgba(143, 150, 159, 0.5);
+}
+
+/* Subtle cold-blue accents to keep the carbon look serious but less monochrome. */
+.section-kicker,
+.eyebrow,
+.hero-dashboard span,
+.demo-specs span,
+.card-topline span,
+.app-header span,
+.next-session span,
+.coach-panel span,
+.app-footer span {
+  color: var(--cold-blue);
+}
+
+.hero-actions a,
+.final-cta a,
+.next-session button,
+.coach-panel button,
+.phone-tabs button.active {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    inset 0 -9px 0 rgba(0, 0, 0, 0.18),
+    0 0 28px rgba(112, 167, 199, 0.18);
+}
+
+.hero-dashboard .hero-lead,
+.demo-specs article,
+.feature-card,
+.audience-card,
+.plan-card,
+.next-session,
+.focus-card.selected {
+  border-color: var(--cold-blue-line);
+}
+
+.hero-stats div,
+.next-session,
+.audience-card,
+.focus-card.selected,
+.focus-card:hover {
+  border-left-color: var(--cold-blue);
+}
+
+.hero-dashboard article::before,
+.feature-card::before,
+.audience-card::before,
+.plan-card::before,
+.demo-specs article::before {
+  border-top-color: var(--cold-blue);
+  border-right-color: var(--cold-blue);
+}
+
+.focus-card.selected,
+.focus-card:hover,
+.plan-card-active {
+  background:
+    linear-gradient(135deg, var(--cold-blue-soft), rgba(5, 6, 8, 0.88)),
+    repeating-linear-gradient(135deg, rgba(216, 219, 224, 0.035) 0 1px, transparent 1px 10px),
+    linear-gradient(140deg, rgba(25, 27, 31, 0.96), rgba(5, 6, 8, 0.9));
+  box-shadow: 0 0 34px rgba(112, 167, 199, 0.14);
+}
+
+.demo-copy::after,
+.feature-card::after,
+.plan-card::after,
+.focus-card i {
+  background: linear-gradient(90deg, transparent, var(--cold-blue), rgba(216, 219, 224, 0.34));
+}
+
+.score-ring {
+  background:
+    radial-gradient(circle, #080a10 55%, transparent 57%),
+    conic-gradient(var(--cold-blue) 0 78%, rgba(80, 84, 92, 0.34) 78% 100%);
+}
+
+.stats-panel strong,
+.plan-card li::before,
+.profile-chip,
+.card-topline span {
+  color: var(--cold-blue);
 }
