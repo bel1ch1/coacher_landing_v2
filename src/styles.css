@@ -1936,6 +1936,11 @@ h1 {
   opacity: 1;
   filter: blur(0);
   transform: scale(1);
+  transition-delay: 0ms;
+}
+
+.reveal-audience.reveal-reverse.is-visible .audience-copy {
+  transition-delay: 650ms;
 }
 
 .reveal-audience .audience-card {
@@ -1967,19 +1972,25 @@ h1 {
 }
 
 .reveal-blur.is-visible .section-heading {
-  transition-delay: 140ms;
+  transition-delay: 90ms;
 }
 
-.reveal-blur.is-visible .plan-card:nth-child(1) {
-  transition-delay: 260ms;
+.reveal-blur.is-visible .plan-card {
+  transition-delay: var(--delay);
 }
 
-.reveal-blur.is-visible .plan-card:nth-child(2) {
-  transition-delay: 400ms;
+.reveal-blur.reveal-reverse.is-visible .section-kicker {
+  transition-delay: 380ms;
 }
 
-.reveal-blur.is-visible .plan-card:nth-child(3) {
-  transition-delay: 540ms;
+.reveal-blur.reveal-reverse.is-visible .section-heading {
+  transition-delay: 280ms;
+}
+
+.pricing-section.reveal-blur .section-kicker,
+.pricing-section.reveal-blur .section-heading,
+.pricing-section.reveal-blur .plan-card {
+  transition-duration: 620ms;
 }
 
 .reveal-demo:not(.is-visible) .demo-copy,
@@ -2020,5 +2031,34 @@ h1 {
     filter: none;
     transform: none;
     transition: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .reveal-audience .audience-copy,
+  .reveal-blur .section-kicker,
+  .reveal-blur .section-heading,
+  .reveal-blur .plan-card {
+    transition-duration: 540ms;
+  }
+
+  .reveal-audience.reveal-reverse.is-visible .audience-copy {
+    transition-delay: 450ms;
+  }
+
+  .reveal-blur.is-visible .section-heading {
+    transition-delay: 90ms;
+  }
+
+  .reveal-blur.is-visible .plan-card {
+    transition-delay: var(--mobile-delay);
+  }
+
+  .reveal-blur.reveal-reverse.is-visible .section-kicker {
+    transition-delay: 420ms;
+  }
+
+  .reveal-blur.reveal-reverse.is-visible .section-heading {
+    transition-delay: 310ms;
   }
 }

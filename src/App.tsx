@@ -2,18 +2,37 @@ import { type CSSProperties, useEffect, useMemo, useRef, useState } from 'react'
 import backgroundImage from '../background_coacher_landing.png'
 
 type PhoneTab = 'plan' | 'coach' | 'stats'
+type ScrollDirection = 'down' | 'up'
 
 function useReveal<T extends HTMLElement>(threshold = 0.24) {
   const ref = useRef<T | null>(null)
   const [isVisible, setIsVisible] = useState(false)
   const [skipInitialAnimation, setSkipInitialAnimation] = useState(false)
+  const [direction, setDirection] = useState<ScrollDirection>('down')
   const hasMeasuredInitialState = useRef(false)
+  const scrollDirection = useRef<ScrollDirection>('down')
+  const lastScrollY = useRef(0)
 
   useEffect(() => {
     const node = ref.current
 
     if (!node) {
       return
+    }
+
+    lastScrollY.current = window.scrollY
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+
+      if (Math.abs(currentScrollY - lastScrollY.current) < 2) {
+        return
+      }
+
+      const nextDirection = currentScrollY > lastScrollY.current ? 'down' : 'up'
+      scrollDirection.current = nextDirection
+      setDirection(nextDirection)
+      lastScrollY.current = currentScrollY
     }
 
     const observer = new IntersectionObserver(
@@ -26,6 +45,7 @@ function useReveal<T extends HTMLElement>(threshold = 0.24) {
           }
         }
 
+        setDirection(scrollDirection.current)
         setIsVisible(entry.isIntersecting)
       },
       {
@@ -34,12 +54,16 @@ function useReveal<T extends HTMLElement>(threshold = 0.24) {
       },
     )
 
+    window.addEventListener('scroll', handleScroll, { passive: true })
     observer.observe(node)
 
-    return () => observer.disconnect()
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      observer.disconnect()
+    }
   }, [threshold])
 
-  return { ref, isVisible, skipInitialAnimation }
+  return { ref, isVisible, skipInitialAnimation, direction }
 }
 
 const focusAreas = [
@@ -140,6 +164,9 @@ function App() {
   const featuresReveal = useReveal<HTMLElement>(0.18)
   const audienceReveal = useReveal<HTMLElement>(0.24)
   const pricingReveal = useReveal<HTMLElement>(0.22)
+  const featuresAreReversed = featuresReveal.direction === 'up'
+  const audienceIsReversed = audienceReveal.direction === 'up'
+  const pricingIsReversed = pricingReveal.direction === 'up'
 
   return (
     <main className="landing">
@@ -148,7 +175,7 @@ function App() {
       <section
         className={`section section-intro reveal-features ${featuresReveal.isVisible ? 'is-visible' : ''} ${
           featuresReveal.skipInitialAnimation ? 'reveal-static' : ''
-        }`}
+        } ${featuresAreReversed ? 'reveal-reverse' : ''}`}
         id="about"
         ref={featuresReveal.ref}
       >
@@ -165,7 +192,11 @@ function App() {
             <article
               className="feature-card"
               key={feature.index}
-              style={{ '--delay': `${index * 140}ms` } as CSSProperties}
+              style={
+                {
+                  '--delay': `${(featuresAreReversed ? features.length - 1 - index : index) * 140}ms`,
+                } as CSSProperties
+              }
             >
               <div className="card-topline">
                 <span>{feature.index}</span>
@@ -181,7 +212,7 @@ function App() {
       <section
         className={`section split-section reveal-audience ${audienceReveal.isVisible ? 'is-visible' : ''} ${
           audienceReveal.skipInitialAnimation ? 'reveal-static' : ''
-        }`}
+        } ${audienceIsReversed ? 'reveal-reverse' : ''}`}
         ref={audienceReveal.ref}
       >
         <div className="audience-copy">
@@ -198,7 +229,11 @@ function App() {
             <article
               className="audience-card"
               key={title}
-              style={{ '--delay': `${index * 150}ms` } as CSSProperties}
+              style={
+                {
+                  '--delay': `${(audienceIsReversed ? audiences.length - 1 - index : index) * 150}ms`,
+                } as CSSProperties
+              }
             >
               <strong>{title}</strong>
               <p>{text}</p>
@@ -210,7 +245,7 @@ function App() {
       <section
         className={`section pricing-section reveal-blur ${pricingReveal.isVisible ? 'is-visible' : ''} ${
           pricingReveal.skipInitialAnimation ? 'reveal-static' : ''
-        }`}
+        } ${pricingIsReversed ? 'reveal-reverse' : ''}`}
         id="plans"
         ref={pricingReveal.ref}
       >
@@ -221,7 +256,16 @@ function App() {
         </div>
         <div className="pricing-grid">
           {plans.map((plan, index) => (
-            <article className={index === 1 ? 'plan-card plan-card-active' : 'plan-card'} key={plan.name}>
+            <article
+              className={index === 1 ? 'plan-card plan-card-active' : 'plan-card'}
+              key={plan.name}
+              style={
+                {
+                  '--delay': `${(pricingIsReversed ? plans.length - 1 - index : index) * 90 + 150}ms`,
+                  '--mobile-delay': `${(pricingIsReversed ? plans.length - 1 - index : index) * 90 + 130}ms`,
+                } as CSSProperties
+              }
+            >
               <div className="plan-topline">
                 <h3>{plan.name}</h3>
                 <span>{plan.price}</span>
