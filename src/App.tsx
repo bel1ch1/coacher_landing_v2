@@ -365,6 +365,7 @@ function DemoSection() {
       id="phone-demo"
       ref={demoReveal.ref}
     >
+      <AppInterface />
       <div className="demo-copy">
         <div className="section-kicker">INTERACTIVE APP CONCEPT</div>
         <h2>Демо интерфейса внутри iPhone 17</h2>
@@ -391,9 +392,6 @@ function DemoSection() {
           </article>
         </div>
       </div>
-      <PhoneFrame>
-        <AppInterface />
-      </PhoneFrame>
     </section>
   )
 }
@@ -433,100 +431,109 @@ function AppInterface() {
 
   return (
     <div className="app-ui">
-      <header className="app-header">
-        <div>
-          <span>COACHER OS</span>
-          <strong>GAME READY PROTOCOL</strong>
-        </div>
-        <button className="profile-chip" type="button" aria-label="Профиль">
-          82
-        </button>
-      </header>
-
-      <section className="next-session">
-        <div>
-          <span>TODAY / 19:30</span>
-          <strong>EXPLOSIVE SAVE</strong>
-          <p>32 мин / зал / реакция / высокий темп</p>
-        </div>
-        <button type="button" onClick={() => setActiveTab('coach')}>
-          START
-        </button>
-      </section>
-
-      <div className="phone-tabs" role="tablist" aria-label="Разделы демо приложения">
-        {(['plan', 'coach', 'stats'] as PhoneTab[]).map((tab) => (
-          <button
-            aria-selected={activeTab === tab}
-            className={activeTab === tab ? 'active' : ''}
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            role="tab"
-            type="button"
-          >
-            {tab === 'plan' ? 'PLAN' : tab === 'coach' ? 'AI' : 'STATS'}
-          </button>
-        ))}
-      </div>
-
-      {activeTab === 'plan' && (
-        <section className="focus-list" aria-label="Фокус тренировки">
-          {focusAreas.map((item, index) => (
-            <button
-              className={selectedFocus === index ? 'focus-card selected' : 'focus-card'}
-              key={item.title}
-              onClick={() => setSelectedFocus(index)}
-              type="button"
-            >
-              <div className="focus-card-head">
-                <span>{item.code}</span>
-                <em>{item.workload}</em>
-              </div>
-              <strong>{item.title}</strong>
-              <small>{item.label}</small>
-              <b>{item.progress}%</b>
-              <i style={{ width: `${item.progress}%` }} />
+      <PhoneFrame>
+        <div className="app-ui-content">
+          <header className="app-header">
+            <div>
+              <span>COACHER OS</span>
+              <strong>GAME READY PROTOCOL</strong>
+            </div>
+            <button className="profile-chip" type="button" aria-label="Профиль">
+              82
             </button>
-          ))}
-        </section>
-      )}
+          </header>
 
-      {activeTab === 'coach' && (
-        <section className="coach-panel">
-          <span>AI TACTICAL NOTE</span>
-          <p>{coachMessage}</p>
-          <button type="button" onClick={() => setSelectedFocus((selectedFocus + 1) % focusAreas.length)}>
-            NEXT FOCUS
-          </button>
-        </section>
-      )}
+          <section className="next-session">
+            <div>
+              <span>TODAY / 19:30</span>
+              <strong>EXPLOSIVE SAVE</strong>
+              <p>32 мин / зал / реакция / высокий темп</p>
+            </div>
+            <button type="button" onClick={() => setActiveTab('coach')}>
+              START
+            </button>
+          </section>
 
-      {activeTab === 'stats' && (
-        <section className="stats-panel">
-          <div className="score-ring">
-            <span>{activeFocus.progress}</span>
+          <div className="phone-tabs" role="tablist" aria-label="Разделы демо приложения">
+            {(['plan', 'coach', 'stats'] as PhoneTab[]).map((tab) => (
+              <button
+                aria-selected={activeTab === tab}
+                className={activeTab === tab ? 'active' : ''}
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                role="tab"
+                type="button"
+              >
+                {tab === 'plan' ? 'PLAN' : tab === 'coach' ? 'AI' : 'STATS'}
+              </button>
+            ))}
           </div>
-          <div>
-            <strong>{activeFocus.title}</strong>
-            <p>{activeFocus.detail}</p>
-            <dl>
-              <div>
-                <dt>LOAD</dt>
-                <dd>{activeFocus.workload}</dd>
-              </div>
-              <div>
-                <dt>CODE</dt>
-                <dd>{activeFocus.code}</dd>
-              </div>
-            </dl>
-          </div>
-        </section>
-      )}
 
-      <footer className="app-footer">
-        <span>WEEKLY LOAD</span>
-        <strong>4 / 5 SESSIONS</strong>
-      </footer>
+          <div className="app-content">
+            {activeTab === 'plan' && (
+              <section className="focus-list" aria-label="Фокус тренировки">
+                {focusAreas.map((item, index) => (
+                  <button
+                    className={selectedFocus === index ? 'focus-card selected' : 'focus-card'}
+                    key={item.title}
+                    onClick={() => setSelectedFocus(index)}
+                    type="button"
+                  >
+                    <div className="focus-card-head">
+                      <span>{item.code}</span>
+                      <em>{item.workload}</em>
+                    </div>
+                    <strong>{item.title}</strong>
+                    <small>{item.label}</small>
+                    <b>{item.progress}%</b>
+                    <i style={{ width: `${item.progress}%` }} />
+                  </button>
+                ))}
+              </section>
+            )}
+
+            {activeTab === 'coach' && (
+              <section className="coach-panel">
+                <span>AI TACTICAL NOTE</span>
+                <p>{coachMessage}</p>
+                <button
+                  type="button"
+                  onClick={() => setSelectedFocus((selectedFocus + 1) % focusAreas.length)}
+                >
+                  NEXT FOCUS
+                </button>
+              </section>
+            )}
+
+            {activeTab === 'stats' && (
+              <section className="stats-panel">
+                <div className="score-ring">
+                  <span>{activeFocus.progress}</span>
+                </div>
+                <div>
+                  <strong>{activeFocus.title}</strong>
+                  <p>{activeFocus.detail}</p>
+                  <dl>
+                    <div>
+                      <dt>LOAD</dt>
+                      <dd>{activeFocus.workload}</dd>
+                    </div>
+                    <div>
+                      <dt>CODE</dt>
+                      <dd>{activeFocus.code}</dd>
+                    </div>
+                  </dl>
+                </div>
+              </section>
+            )}
+          </div>
+
+          <footer className="app-footer">
+            <span>WEEKLY LOAD</span>
+            <strong>4 / 5 SESSIONS</strong>
+          </footer>
+        </div>
+      </PhoneFrame>
     </div>
   )
 }
